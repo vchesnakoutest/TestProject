@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import steps.GoogleSteps;
+import utils.CapabilitiesGenerator;
 
 public class BaseTest {
     
@@ -13,8 +14,7 @@ public class BaseTest {
     
     @BeforeMethod(description = "Opening Chrome Driver")
     public void createDriver() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/webdrivers/linux/chromedriver");
-        driver = new ChromeDriver();
+        driver = new ChromeDriver(CapabilitiesGenerator.getChromeOptions());
         steps = new GoogleSteps(driver);
     }
     
