@@ -37,7 +37,7 @@ workflows:
           cron: "0 8 * * *"
           filters:
             branches:
-              only:c
+              only:
               - master
     jobs:
       - ui-tests
