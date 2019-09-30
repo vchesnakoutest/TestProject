@@ -11,9 +11,9 @@ public class BaseTest {
     private WebDriver driver;
     protected GoogleSteps steps;
     
-    @BeforeMethod
+    @BeforeMethod(description = "Opening Chrome Driver")
     public void createDriver() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/webdrivers/chromedriver.exe");
+        System.setProperty("webdriver.chrome.driver", "src/test/resources/webdrivers/chromedriver");
         driver = new ChromeDriver();
         steps = new GoogleSteps(driver);
     }
