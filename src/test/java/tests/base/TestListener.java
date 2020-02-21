@@ -1,49 +1,53 @@
 package tests.base;
 
 import io.qameta.allure.Attachment;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.NoSuchSessionException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 
+@Log4j2
 public class TestListener implements ITestListener {
-    
+
     public void onTestStart(ITestResult iTestResult) {
+        log.info(String.format("======================================== STARTING TEST %s ========================================", iTestResult.getName()));
     }
-    
+
     public void onTestSuccess(ITestResult iTestResult) {
+        log.info(String.format("======================================== FINISHED TEST %s Duration: %ss ========================================", iTestResult.getName(),
+                getExecutionTime(iTestResult)));
     }
 
     public void onTestFailure(ITestResult iTestResult) {
-       //takeScreenshot();
+        log.error(String.format("======================================== FAILED TEST %s Duration: %ss ========================================", iTestResult.getName(),
+                getExecutionTime(iTestResult)));
+        takeScreenshot(iTestResult);
     }
 
     public void onTestSkipped(ITestResult iTestResult) {
-        //takeScreenshot();
-    }
-
-    public void onTestFailedButWithinSuccessPercentage(ITestResult iTestResult) {
-
-    }
-
-    public void onStart(ITestContext iTestContext) {
-
-    }
-
-    public void onFinish(ITestContext iTestContext) {
-
+        log.warn(String.format("======================================== SKIPPING TEST %s ========================================", iTestResult.getName()));
+        takeScreenshot(iTestResult);
     }
 
     @Attachment(value = "Last screen state", type = "image/png")
-    private byte[] takeScreenshot(WebDriver driver) {
-            return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+    private byte[] takeScreenshot(ITestResult iTestResult) {
+        try {
+            return ((TakesScreenshot) getWebDriver()).getScreenshotAs(OutputType.BYTES);
+        } catch (NoSuchSessionException ex) {
+            return null;
+        } catch (IllegalStateException ex) {
+            return null;
+        }
+    }
+
+
+    private long getExecutionTime(ITestResult iTestResult) {
+        return TimeUnit.MILLISECONDS.toSeconds(iTestResult.getEndMillis() - iTestResult.getStartMillis());
     }
 }
