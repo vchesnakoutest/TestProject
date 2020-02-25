@@ -7,7 +7,7 @@ pipeline {
    }
 
    stages {
-      stage('Build') {
+      stage('Run tests') {
          steps {
             // Get some code from a GitHub repository
             git 'https://github.com/dzmitryrak/AllureReporting.git'
@@ -27,7 +27,7 @@ pipeline {
             }
          }
       }
-      stage('reports') {
+      stage('Generate Report') {
          steps {
              script {
                      allure([
