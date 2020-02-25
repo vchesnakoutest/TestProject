@@ -7,7 +7,7 @@ pipeline {
    }
 
    stages {
-      stage('Run tests') {
+      stage('Run test') {
          steps {
             // Get some code from a GitHub repository
             git 'https://github.com/dzmitryrak/AllureReporting.git'
