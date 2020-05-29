@@ -13,6 +13,7 @@ public class GoogleSteps {
     
     @Step("Searching for '{keyword}' in Google")
     public GoogleSteps searchForKeyWord(String keyword) {
+        System.out.println(String.format("Searching for '%s' in Google", keyword));
         page
                 .openPage()
                 .inputKeyWord(keyword)

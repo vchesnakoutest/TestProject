@@ -13,14 +13,18 @@ public class GooglePage extends BasePage{
 
     @Step("Opening Google")
     public GooglePage openPage() {
-        driver.get("http://google.com");
+        String URL = "http://google.com";
+        System.out.println("Opening URL: " + URL);
+        driver.get(URL);
         AllureUtils.takeScreenshot(driver);
         return this;
     }
 
     @Step("Input {keyword} into search window")
     public GooglePage inputKeyWord(String keyword) {
-        driver.findElement(By.name("q")).sendKeys(keyword);
+        By blabla = By.name("q");
+        System.out.println("Input of word " + keyword + " into element with locator" + blabla);
+        driver.findElement(blabla).sendKeys(keyword);
         AllureUtils.takeScreenshot(driver);
         return this;
     }
