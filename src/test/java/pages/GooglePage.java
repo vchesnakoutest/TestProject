@@ -1,12 +1,17 @@
 package pages;
 
 import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.testng.Assert;
 import utils.AllureUtils;
 
+@Log4j2
 public class GooglePage extends BasePage{
-    
+
     public GooglePage(WebDriver driver) {
         super(driver);
     }
@@ -14,7 +19,7 @@ public class GooglePage extends BasePage{
     @Step("Opening Google")
     public GooglePage openPage() {
         String URL = "http://google.com";
-        System.out.println("Opening URL: " + URL);
+        log.debug("HELLO WORLDS");
         driver.get(URL);
         AllureUtils.takeScreenshot(driver);
         return this;
@@ -22,16 +27,16 @@ public class GooglePage extends BasePage{
 
     @Step("Input {keyword} into search window")
     public GooglePage inputKeyWord(String keyword) {
-        By blabla = By.name("q");
-        System.out.println("Input of word " + keyword + " into element with locator" + blabla);
-        driver.findElement(blabla).sendKeys(keyword);
+        By blabla = By.name("asd");
+        log.debug("Input of word " + keyword + " into element with locator" + blabla);
+        findElement(blabla).sendKeys(keyword);
         AllureUtils.takeScreenshot(driver);
         return this;
     }
 
     @Step("Click to search button")
     public GooglePage search() {
-        driver.findElement(By.name("btnK")).click();
+        findElement(By.name("btnK")).click();
         AllureUtils.takeScreenshot(driver);
         return this;
     }
