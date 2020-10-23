@@ -37,11 +37,14 @@ public class TestListener implements ITestListener {
     private byte[] takeScreenshot(ITestResult iTestResult) {
         ITestContext context = iTestResult.getTestContext();
         try {
-            return ((TakesScreenshot)context.getAttribute("driver")).getScreenshotAs(OutputType.BYTES);
-        } catch (NoSuchSessionException ex) {
-            return null;
-        } catch (IllegalStateException ex) {
-            return null;
+            WebDriver driver = (WebDriver) context.getAttribute("driver");
+            if(driver != null) {
+                return ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+            } else {
+                return new byte[] {};
+            }
+        } catch (NoSuchSessionException | IllegalStateException ex) {
+            return new byte[] {};
         }
     }
 
