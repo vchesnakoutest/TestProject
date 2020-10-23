@@ -21,7 +21,6 @@ public class BaseTest {
     
     @BeforeMethod(description = "Opening Chrome Driver")
     public void createDriver(ITestContext context) {
-
         try {
             driver = new ChromeDriver(CapabilitiesGenerator.getChromeOptions());
         } catch (SessionNotCreatedException ex) {
@@ -34,8 +33,10 @@ public class BaseTest {
         context.setAttribute(variable, driver);
     }
     
-    @AfterMethod
+    @AfterMethod (alwaysRun = true)
     public void closeDriver() {
-        driver.quit();
+        if(driver != null) {
+            driver.quit();
+        }
     }
 }
