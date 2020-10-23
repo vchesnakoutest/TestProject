@@ -27,9 +27,9 @@ public class GooglePage extends BasePage{
 
     @Step("Input {keyword} into search window")
     public GooglePage inputKeyWord(String keyword) {
-        By blabla = By.name("asd");
-        log.debug("Input of word " + keyword + " into element with locator" + blabla);
-        findElement(blabla).sendKeys(keyword);
+        By searchInput = By.name("q");
+        log.debug("Input of word " + keyword + " into element with locator" + searchInput);
+        findElement(searchInput).sendKeys(keyword);
         AllureUtils.takeScreenshot(driver);
         return this;
     }
