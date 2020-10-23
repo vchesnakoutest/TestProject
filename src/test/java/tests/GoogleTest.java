@@ -2,7 +2,6 @@ package tests;
 
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
-import pages.GooglePage;
 import tests.base.BaseTest;
 
 public class GoogleTest extends BaseTest {
