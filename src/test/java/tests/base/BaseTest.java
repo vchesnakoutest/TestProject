@@ -1,5 +1,6 @@
 package tests.base;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.SessionNotCreatedException;
 import org.openqa.selenium.WebDriver;
@@ -22,6 +23,7 @@ public class BaseTest {
     @BeforeMethod(description = "Opening Chrome Driver")
     public void createDriver(ITestContext context) {
         try {
+            WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver(CapabilitiesGenerator.getChromeOptions());
         } catch (SessionNotCreatedException ex) {
             Assert.fail("Браузер не был открыт. Проверьте, что используется корректная версия драйвера");
