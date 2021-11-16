@@ -3,6 +3,7 @@ package pages;
 import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import utils.AllureUtils;
 
@@ -33,7 +34,8 @@ public class GooglePage extends BasePage {
 
     @Step("Click to search button")
     public GooglePage search() {
-        findElement(By.name("btnK")).click();
+        By searchInput = By.name("q");
+        findElement(searchInput).sendKeys(Keys.ENTER);
         AllureUtils.takeScreenshot(driver);
         return this;
     }
